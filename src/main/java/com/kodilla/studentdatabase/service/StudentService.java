@@ -26,7 +26,30 @@ public class StudentService {
         return studentRepo.save(newStudent);
     }
 
-    public void deleteStudent(final Long id) throws StudentNotFoundException {
+    public Student updateStudent(Student updatedStudent) throws StudentNotFoundException {
+        Long id = updatedStudent.getId();
+        if (studentRepo.findById(id).isPresent()) {
+            Student student = new Student(
+                    id,
+                    updatedStudent.getLogNumber(),
+                    updatedStudent.getFirstName(),
+                    updatedStudent.getLastName(),
+                    updatedStudent.getDateOfBirth(),
+                    updatedStudent.getAddress(),
+                    updatedStudent.getStudentMail(),
+                    updatedStudent.getStudentPhone(),
+                    updatedStudent.getGrades(),
+                    updatedStudent.getSubjects(),
+                    updatedStudent.getGroup(),
+                    updatedStudent.getLogging()
+            );
+            return studentRepo.save(student);
+        } else {
+            throw new StudentNotFoundException();
+        }
+    }
+
+    public void deleteStudent(final Long id) {
         studentRepo.deleteById(id);
     }
 }

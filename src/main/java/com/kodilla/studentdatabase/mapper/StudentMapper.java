@@ -1,6 +1,7 @@
 package com.kodilla.studentdatabase.mapper;
 
 import com.kodilla.studentdatabase.domain.Student;
+import com.kodilla.studentdatabase.domain.StudentDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,21 +9,25 @@ import java.util.List;
 @Service
 public class StudentMapper {
 
-    public Student mapToStudent(final StudentDTO studentDTO) {
+    public Student mapToStudent(final StudentDto studentDto) {
         return new Student(
-                studentDTO.getId(),
-                studentDTO.getLogNumber(),
-                studentDTO.getFirstName(),
-                studentDTO.getLastName(),
-                studentDTO.getDateOfBirth(),
-                studentDTO.getAddress(),
-                studentDTO.getStudentMail(),
-                studentDTO.getStudentPhone()
+                studentDto.getId(),
+                studentDto.getLogNumber(),
+                studentDto.getFirstName(),
+                studentDto.getLastName(),
+                studentDto.getDateOfBirth(),
+                studentDto.getAddress(),
+                studentDto.getStudentMail(),
+                studentDto.getStudentPhone(),
+                null,
+                null,
+                null,
+                null
         );
     }
 
-    public StudentDTO mapToStudentDTO(final Student student) {
-        return new StudentDTO(
+    public StudentDto mapToStudentDto(final Student student) {
+        return new StudentDto(
                 student.getId(),
                 student.getLogNumber(),
                 student.getFirstName(),
@@ -30,13 +35,17 @@ public class StudentMapper {
                 student.getDateOfBirth(),
                 student.getAddress(),
                 student.getStudentMail(),
-                student.getStudentPhone()
+                student.getStudentPhone(),
+                null,
+                null,
+                null,
+                null
         );
     }
 
-    public List<StudentDTO> mapToStudentDTOList(final List<Student> listOfStudents) {
+    public List<StudentDto> mapToStudentDtoList(final List<Student> listOfStudents) {
         return listOfStudents.stream()
-                .map(this::mapToStudentDTO)
+                .map(this::mapToStudentDto)
                 .toList();
     }
 }
