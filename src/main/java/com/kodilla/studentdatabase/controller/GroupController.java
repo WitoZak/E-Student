@@ -1,4 +1,4 @@
 package com.kodilla.studentdatabase.controller;
 
-public class VerificationController {
+public class GroupController {
 }

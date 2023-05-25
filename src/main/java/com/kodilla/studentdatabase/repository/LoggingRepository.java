@@ -1,9 +1,9 @@
 package com.kodilla.studentdatabase.repository;
 
-import com.kodilla.studentdatabase.domain.Verification;
+import com.kodilla.studentdatabase.domain.Logging;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface VerificationRepository extends CrudRepository<Verification, Long> {
+public interface LoggingRepository extends CrudRepository<Logging, Long> {
 }

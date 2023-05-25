@@ -1,7 +1,6 @@
 package com.kodilla.studentdatabase.controller;
 
 import com.kodilla.studentdatabase.domain.Student;
-import com.kodilla.studentdatabase.domain.StudentDTO;
 import com.kodilla.studentdatabase.mapper.StudentMapper;
 import com.kodilla.studentdatabase.service.StudentService;
 import lombok.RequiredArgsConstructor;

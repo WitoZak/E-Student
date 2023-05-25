@@ -10,25 +10,18 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Entity(name = "SUBJECTS")
-public class Subject {
+@Entity(name = "GROUPS")
+public class Group {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @Column(name = "SUBJECT_NAME")
-    private String subjectName;
+    @Column(name = "CLASS_NAME")
+    private String className;
 
-    @OneToMany(mappedBy = "subject")
-    private List<Grade> grades;
-
-    @ManyToMany(mappedBy = "subjects")
+    @OneToMany(targetEntity = Student.class,
+            mappedBy = "group",
+            fetch = FetchType.LAZY)
     private List<Student> students;
-
-    @ManyToOne
-    @JoinColumn(name = "TEACHER_ID")
-    private Teacher teacher;
-
 }
-

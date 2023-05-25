@@ -1,7 +1,6 @@
 package com.kodilla.studentdatabase.mapper;
 
 import com.kodilla.studentdatabase.domain.Student;
-import com.kodilla.studentdatabase.domain.StudentDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
