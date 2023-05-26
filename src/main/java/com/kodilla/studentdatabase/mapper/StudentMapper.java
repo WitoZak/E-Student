@@ -1,15 +1,28 @@
 package com.kodilla.studentdatabase.mapper;
 
+import com.kodilla.studentdatabase.domain.Grade;
+import com.kodilla.studentdatabase.domain.Group;
 import com.kodilla.studentdatabase.domain.Student;
 import com.kodilla.studentdatabase.domain.StudentDto;
+import com.kodilla.studentdatabase.exceptions.GroupNotFoundException;
+import com.kodilla.studentdatabase.service.GroupService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class StudentMapper {
 
-    public Student mapToStudent(final StudentDto studentDto) {
+    private final GroupService groupService;
+    private final GradeMapper gradeMapper;
+
+
+    public Student mapToStudent(final StudentDto studentDto) throws GroupNotFoundException {
+        List<Grade> grades = studentDto.getGradesDtos() != null ? gradeMapper.mapToGradeList(studentDto.getGradesDtos()) : null;
+        Group group = studentDto.getGroupId() != null ? groupService.getGroup(studentDto.getGroupId()) : null;
+
         return new Student(
                 studentDto.getId(),
                 studentDto.getLogNumber(),
@@ -19,10 +32,8 @@ public class StudentMapper {
                 studentDto.getAddress(),
                 studentDto.getStudentMail(),
                 studentDto.getStudentPhone(),
-                null,
-                null,
-                null,
-                null
+                grades,
+                group
         );
     }
 
@@ -36,10 +47,8 @@ public class StudentMapper {
                 student.getAddress(),
                 student.getStudentMail(),
                 student.getStudentPhone(),
-                null,
-                null,
-                null,
-                null
+                gradeMapper.mapToGradeDtoList(student.getGrades()),
+                student.getGroup().getId()
         );
     }
 
@@ -48,4 +57,17 @@ public class StudentMapper {
                 .map(this::mapToStudentDto)
                 .toList();
     }
+
+    public List<Student> mapToStudentList(final List<StudentDto> listOfStudentDtos) {
+        return listOfStudentDtos.stream()
+                .map(studentDto -> {
+                    try {
+                        return mapToStudent(studentDto);
+                    } catch (GroupNotFoundException e) {
+                        throw new RuntimeException("Group not found", e);
+                    }
+                })
+                .toList();
+    }
+
 }

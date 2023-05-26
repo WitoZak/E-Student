@@ -19,7 +19,5 @@ public class StudentDto implements Serializable {
     String studentMail;
     String studentPhone;
     List<GradeDto> gradesDtos;
-    List<Subject> subjectsDtos;
-    GroupDto group;
-    LoggingDto logging;
+    Long groupId;
 }

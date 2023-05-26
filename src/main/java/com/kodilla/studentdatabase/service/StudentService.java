@@ -40,8 +40,7 @@ public class StudentService {
                     updatedStudent.getStudentPhone(),
                     updatedStudent.getGrades(),
                     updatedStudent.getSubjects(),
-                    updatedStudent.getGroup(),
-                    updatedStudent.getLogging()
+                    updatedStudent.getGroup()
             );
             return studentRepo.save(student);
         } else {

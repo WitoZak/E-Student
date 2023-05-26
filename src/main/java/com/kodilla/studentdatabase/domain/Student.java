@@ -14,6 +14,7 @@ public class Student {
 
     @Id
     @GeneratedValue
+    @Column(name = "STUDENT_ID", unique = true)
     private Long id;
 
     @Column(name = "LOG_NUMBER")
@@ -31,28 +32,40 @@ public class Student {
     @Column(name = "ADDRESS")
     private String address;
 
-    @Column(name = "STUDENT_MAIL")
-    private String studentMail;
+        @Column(name = "STUDENT_MAIL")
+        private String studentMail;
 
-    @Column(name = "STUDENT_PHONE")
-    private String studentPhone;
+        @Column(name = "STUDENT_PHONE")
+        private String studentPhone;
 
-    @OneToMany(mappedBy = "student")
-    private List<Grade> grades;
+        @OneToMany(mappedBy = "student")
+        private List<Grade> grades;
 
-    @ManyToMany
-    @JoinTable(
-            name = "STUDENT_SUBJECT",
-            joinColumns = @JoinColumn(name = "STUDENT_ID"),
-            inverseJoinColumns = @JoinColumn(name = "SUBJECT_ID")
-    )
-    private List<Subject> subjects;
+        @ManyToMany
+        @JoinTable(
+                name = "STUDENT_SUBJECT",
+                joinColumns = @JoinColumn(name = "STUDENT_ID"),
+                inverseJoinColumns = @JoinColumn(name = "SUBJECT_ID")
+        )
+        private List<Subject> subjects;
 
-    @ManyToOne
-    @JoinColumn(name = "GROUP_ID")
-    private Group group;
+        @ManyToOne
+        @JoinColumn(name = "CLASS_NAME")
+        private Group group;
 
-    @OneToOne(mappedBy = "student")
-    private Logging logging;
-
+    @Builder
+    public Student(Long id, Integer logNumber, String firstName, String lastName, String dateOfBirth,
+                   String address, String studentMail, String studentPhone, List<Grade> grades,
+                    Group group) {
+        this.id = id;
+        this.logNumber = logNumber;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.address = address;
+        this.studentMail = studentMail;
+        this.studentPhone = studentPhone;
+        this.grades = grades;
+        this.group = group;
+    }
 }

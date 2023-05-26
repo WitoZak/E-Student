@@ -2,10 +2,11 @@ package com.kodilla.studentdatabase.controller;
 
 import com.kodilla.studentdatabase.domain.Student;
 import com.kodilla.studentdatabase.domain.StudentDto;
+import com.kodilla.studentdatabase.exceptions.GroupNotFoundException;
 import com.kodilla.studentdatabase.exceptions.StudentNotFoundException;
+import com.kodilla.studentdatabase.mapper.GradeMapper;
 import com.kodilla.studentdatabase.mapper.StudentMapper;
-import com.kodilla.studentdatabase.service.GroupService;
-import com.kodilla.studentdatabase.service.StudentService;
+import com.kodilla.studentdatabase.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,10 @@ public class StudentController {
     private final StudentService studentService;
     private final StudentMapper studentMapper;
     private final GroupService groupService;
+    private final GradeService gradeService;
+    private final GradeMapper gradeMapper;
+    private final SubjectService subjectService;
+    private final TeacherService teacherService;
 
     @GetMapping
     public ResponseEntity<List<StudentDto>> findAllStudents() {
@@ -35,13 +40,13 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> addStudent(@RequestBody StudentDto studentDto) {
+    public ResponseEntity<Void> addStudent(@RequestBody StudentDto studentDto) throws GroupNotFoundException {
         Student student = studentMapper.mapToStudent(studentDto);
         studentService.saveStudent(student);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     public ResponseEntity<StudentDto> updateStudent(@RequestBody StudentDto studentDto) throws StudentNotFoundException {
         Student studentToUpdate = studentService.getStudent(studentDto.getId());
         studentToUpdate.setFirstName(studentDto.getFirstName());
