@@ -13,7 +13,7 @@ public class GradeDto implements Serializable {
     Long id;
     String value;
     LocalDateTime gradeTimestamp;
-    Subject subject;
-    Teacher teacher;
-    Student student;
+    Long subjectId;
+    Long teacherId;
+    Long studentId;
 }

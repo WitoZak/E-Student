@@ -1,4 +1,4 @@
 package com.kodilla.studentdatabase.exceptions;
 
-public class GradeNotFoundException {
+public class GradeNotFoundException extends Throwable {
 }

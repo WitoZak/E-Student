@@ -4,17 +4,19 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 @Entity(name = "GRADES")
 public class Grade {
     @Id
     @GeneratedValue
+    @Column(name = "GRADES_ID", unique = true)
     private Long id;
 
     @Column(name = "GRADE_VALUE")
