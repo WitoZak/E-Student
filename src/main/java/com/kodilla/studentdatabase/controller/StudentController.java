@@ -1,12 +1,14 @@
 package com.kodilla.studentdatabase.controller;
 
+import com.kodilla.studentdatabase.domain.Group;
 import com.kodilla.studentdatabase.domain.Student;
 import com.kodilla.studentdatabase.domain.StudentDto;
-import com.kodilla.studentdatabase.exceptions.GroupNotFoundException;
-import com.kodilla.studentdatabase.exceptions.StudentNotFoundException;
-import com.kodilla.studentdatabase.mapper.GradeMapper;
+import com.kodilla.studentdatabase.domain.Subject;
+import com.kodilla.studentdatabase.exceptions.*;
 import com.kodilla.studentdatabase.mapper.StudentMapper;
-import com.kodilla.studentdatabase.service.*;
+import com.kodilla.studentdatabase.service.GroupService;
+import com.kodilla.studentdatabase.service.StudentService;
+import com.kodilla.studentdatabase.service.SubjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +23,7 @@ public class StudentController {
     private final StudentService studentService;
     private final StudentMapper studentMapper;
     private final GroupService groupService;
-    private final GradeService gradeService;
-    private final GradeMapper gradeMapper;
     private final SubjectService subjectService;
-    private final TeacherService teacherService;
 
     @GetMapping
     public ResponseEntity<List<StudentDto>> findAllStudents() {
@@ -40,8 +39,26 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> addStudent(@RequestBody StudentDto studentDto) throws GroupNotFoundException {
+    public ResponseEntity<Void> addStudent(@RequestBody StudentDto studentDto) throws GroupNotFoundException, SubjectNotFoundException, TeacherNotFoundException, GradeNotFoundException {
         Student student = studentMapper.mapToStudent(studentDto);
+        if (studentDto.getGroupId() != null) {
+            Group group = groupService.getGroup(studentDto.getGroupId());
+            student.setGroup(group);
+        } else {
+            Group newGroup = new Group();
+            newGroup.setClassName(studentDto.getGroupName());
+            groupService.saveGroup(newGroup);
+            student.setGroup(newGroup);
+        }
+        if (studentDto.getSubjectId() != null) {
+            Subject subject = subjectService.getSubject(studentDto.getSubjectId());
+            student.setSubject(subject);
+        } else {
+            Subject newSubject = new Subject();
+            newSubject.setSubjectName(studentDto.getSubjectName());
+            subjectService.saveSubject(newSubject);
+            student.setSubject(newSubject);
+        }
         studentService.saveStudent(student);
         return ResponseEntity.ok().build();
     }

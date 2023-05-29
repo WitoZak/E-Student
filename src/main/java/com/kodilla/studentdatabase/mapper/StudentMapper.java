@@ -1,11 +1,12 @@
 package com.kodilla.studentdatabase.mapper;
 
-import com.kodilla.studentdatabase.domain.Grade;
-import com.kodilla.studentdatabase.domain.Group;
-import com.kodilla.studentdatabase.domain.Student;
-import com.kodilla.studentdatabase.domain.StudentDto;
+import com.kodilla.studentdatabase.domain.*;
+import com.kodilla.studentdatabase.exceptions.GradeNotFoundException;
 import com.kodilla.studentdatabase.exceptions.GroupNotFoundException;
+import com.kodilla.studentdatabase.exceptions.SubjectNotFoundException;
+import com.kodilla.studentdatabase.exceptions.TeacherNotFoundException;
 import com.kodilla.studentdatabase.service.GroupService;
+import com.kodilla.studentdatabase.service.SubjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +18,12 @@ public class StudentMapper {
 
     private final GroupService groupService;
     private final GradeMapper gradeMapper;
+    private final SubjectService subjectService;
 
-
-    public Student mapToStudent(final StudentDto studentDto) throws GroupNotFoundException {
+    public Student mapToStudent(final StudentDto studentDto) throws GroupNotFoundException, GradeNotFoundException, SubjectNotFoundException, TeacherNotFoundException {
         List<Grade> grades = studentDto.getGradesDtos() != null ? gradeMapper.mapToGradeList(studentDto.getGradesDtos()) : null;
-        Group group = studentDto.getGroupId() != null ? groupService.getGroup(studentDto.getGroupId()) : null;
+        Subject subjects = studentDto.getSubjectId() != null ? subjectService.getSubject(studentDto.getSubjectId()) : null;
+        Group groups = studentDto.getGroupId() != null ? groupService.getGroup(studentDto.getGroupId()) : null;
 
         return new Student(
                 studentDto.getId(),
@@ -33,11 +35,14 @@ public class StudentMapper {
                 studentDto.getStudentMail(),
                 studentDto.getStudentPhone(),
                 grades,
-                group
+                subjects,
+                groups
         );
     }
 
     public StudentDto mapToStudentDto(final Student student) {
+        List<GradeDto> gradesDtos = student.getGrades() != null ? gradeMapper.mapToGradeDtoList(student.getGrades()) : null;
+
         return new StudentDto(
                 student.getId(),
                 student.getLogNumber(),
@@ -47,8 +52,11 @@ public class StudentMapper {
                 student.getAddress(),
                 student.getStudentMail(),
                 student.getStudentPhone(),
-                gradeMapper.mapToGradeDtoList(student.getGrades()),
-                student.getGroup().getId()
+                gradesDtos,
+                student.getSubject().getId(),
+                student.getSubject().getSubjectName(),
+                student.getGroup().getId(),
+                student.getGroup().getClassName()
         );
     }
 
@@ -63,7 +71,8 @@ public class StudentMapper {
                 .map(studentDto -> {
                     try {
                         return mapToStudent(studentDto);
-                    } catch (GroupNotFoundException e) {
+                    } catch (GroupNotFoundException | GradeNotFoundException | SubjectNotFoundException |
+                             TeacherNotFoundException e) {
                         throw new RuntimeException("Group not found", e);
                     }
                 })

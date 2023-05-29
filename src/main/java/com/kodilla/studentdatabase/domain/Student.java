@@ -6,7 +6,6 @@ import lombok.*;
 import java.util.List;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @Entity(name = "STUDENTS")
@@ -32,31 +31,27 @@ public class Student {
     @Column(name = "ADDRESS")
     private String address;
 
-        @Column(name = "STUDENT_MAIL")
-        private String studentMail;
+    @Column(name = "STUDENT_MAIL")
+    private String studentMail;
 
-        @Column(name = "STUDENT_PHONE")
-        private String studentPhone;
+    @Column(name = "STUDENT_PHONE")
+    private String studentPhone;
 
-        @OneToMany(mappedBy = "student")
-        private List<Grade> grades;
+    @OneToMany(mappedBy = "student")
+    private List<Grade> grades;
 
-        @ManyToMany
-        @JoinTable(
-                name = "STUDENT_SUBJECT",
-                joinColumns = @JoinColumn(name = "STUDENT_ID"),
-                inverseJoinColumns = @JoinColumn(name = "SUBJECT_ID")
-        )
-        private List<Subject> subjects;
+    @ManyToOne
+    @JoinColumn(name = "SUBJECT_NAME")
+    private Subject subject;
 
-        @ManyToOne
-        @JoinColumn(name = "CLASS_NAME")
-        private Group group;
+    @ManyToOne
+    @JoinColumn(name = "CLASS_NAME")
+    private Group group;
 
     @Builder
     public Student(Long id, Integer logNumber, String firstName, String lastName, String dateOfBirth,
-                   String address, String studentMail, String studentPhone, List<Grade> grades,
-                    Group group) {
+                   String address, String studentMail, String studentPhone, List<Grade> grades, Subject subject,
+                   Group group) {
         this.id = id;
         this.logNumber = logNumber;
         this.firstName = firstName;

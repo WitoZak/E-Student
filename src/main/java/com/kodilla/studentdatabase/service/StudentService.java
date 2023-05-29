@@ -39,7 +39,7 @@ public class StudentService {
                     updatedStudent.getStudentMail(),
                     updatedStudent.getStudentPhone(),
                     updatedStudent.getGrades(),
-                    updatedStudent.getSubjects(),
+                    updatedStudent.getSubject(),
                     updatedStudent.getGroup()
             );
             return studentRepo.save(student);
