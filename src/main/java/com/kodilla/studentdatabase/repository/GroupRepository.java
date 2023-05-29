@@ -1,7 +1,14 @@
 package com.kodilla.studentdatabase.repository;
 
 import com.kodilla.studentdatabase.domain.Group;
-import org.springframework.data.repository.Repository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface GroupRepository extends Repository<Group, Integer> {
+import java.util.List;
+
+@Repository
+public interface GroupRepository extends CrudRepository<Group, Long> {
+
+    List<Group> findAll();
+
 }
