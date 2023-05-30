@@ -1,8 +1,6 @@
 package com.kodilla.studentdatabase.domain;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.Value;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,6 +9,8 @@ import java.util.List;
  * DTO for {@link Group}
  */
 @Value
+@NoArgsConstructor(force = true)
+@AllArgsConstructor
 public class GroupDto implements Serializable {
     Long id;
     String className;
