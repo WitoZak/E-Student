@@ -6,6 +6,7 @@ import lombok.*;
 import java.util.List;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity(name = "STUDENTS")
@@ -48,19 +49,96 @@ public class Student {
     @JoinColumn(name = "CLASS_NAME")
     private Group group;
 
-    @Builder
-    public Student(Long id, Integer logNumber, String firstName, String lastName, String dateOfBirth,
-                   String address, String studentMail, String studentPhone, List<Grade> grades, Subject subject,
-                   Group group) {
-        this.id = id;
-        this.logNumber = logNumber;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.address = address;
-        this.studentMail = studentMail;
-        this.studentPhone = studentPhone;
-        this.grades = grades;
-        this.group = group;
+    public Student(Builder builder) {
+        this.id = builder.id;
+        this.logNumber = builder.logNumber;
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
+        this.dateOfBirth = builder.dateOfBirth;
+        this.address = builder.address;
+        this.studentMail = builder.studentMail;
+        this.studentPhone = builder.studentPhone;
+        this.grades = builder.grades;
+        this.subject = builder.subject;
+        this.group = builder.group;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private Long id;
+        private Integer logNumber;
+        private String firstName;
+        private String lastName;
+        private String dateOfBirth;
+        private String address;
+        private String studentMail;
+        private String studentPhone;
+        private List<Grade> grades;
+        private Subject subject;
+        private Group group;
+
+        private Builder() {
+        }
+
+        public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
+        public Builder logNumber(Integer logNumber) {
+            this.logNumber = logNumber;
+            return this;
+        }
+
+        public Builder firstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public Builder lastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public Builder dateOfBirth(String dateOfBirth) {
+            this.dateOfBirth = dateOfBirth;
+            return this;
+        }
+
+        public Builder address(String address) {
+            this.address = address;
+            return this;
+        }
+
+        public Builder studentMail(String studentMail) {
+            this.studentMail = studentMail;
+            return this;
+        }
+
+        public Builder studentPhone(String studentPhone) {
+            this.studentPhone = studentPhone;
+            return this;
+        }
+
+        public Builder grades(List<Grade> grades) {
+            this.grades = grades;
+            return this;
+        }
+
+        public Builder subject(Subject subject) {
+            this.subject = subject;
+            return this;
+        }
+
+        public Builder group(Group group) {
+            this.group = group;
+            return this;
+        }
+
+        public Student build() {
+            return new Student(this);
+        }
     }
 }
