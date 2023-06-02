@@ -1,4 +1,4 @@
 package com.kodilla.studentdatabase.exceptions;
 
-public class SubjectNotFoundException {
+public class SubjectNotFoundException extends Throwable {
 }
