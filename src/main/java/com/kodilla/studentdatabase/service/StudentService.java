@@ -18,6 +18,14 @@ public class StudentService {
         return studentRepo.findAll();
     }
 
+    public List<Student> findAllStudents(String stringFilter) {
+        if (stringFilter == null || stringFilter.isEmpty()) {
+            return studentRepo.findAll();
+        } else {
+            return studentRepo.search(stringFilter);
+        }
+    }
+
     public Student getStudent(final Long id) throws StudentNotFoundException {
         return studentRepo.findById(id).orElseThrow(StudentNotFoundException::new);
     }
@@ -36,8 +44,8 @@ public class StudentService {
                     updatedStudent.getLastName(),
                     updatedStudent.getDateOfBirth(),
                     updatedStudent.getAddress(),
-                    updatedStudent.getStudentMail(),
-                    updatedStudent.getStudentPhone(),
+                    updatedStudent.getMail(),
+                    updatedStudent.getPhone(),
                     updatedStudent.getGrades(),
                     updatedStudent.getSubject(),
                     updatedStudent.getGroup()

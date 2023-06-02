@@ -70,8 +70,8 @@ public class StudentController {
         studentToUpdate.setLastName(studentDto.getLastName());
         studentToUpdate.setDateOfBirth(studentDto.getDateOfBirth());
         studentToUpdate.setAddress(studentDto.getAddress());
-        studentToUpdate.setStudentMail(studentDto.getStudentMail());
-        studentToUpdate.setStudentPhone(studentDto.getStudentPhone());
+        studentToUpdate.setMail(studentDto.getMail());
+        studentToUpdate.setPhone(studentDto.getPhone());
         Student updatedStudent = studentService.updateStudent(studentToUpdate);
         StudentDto updatedStudentDto = studentMapper.mapToStudentDto(updatedStudent);
         return ResponseEntity.ok(updatedStudentDto);

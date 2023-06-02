@@ -2,7 +2,6 @@ package com.kodilla.studentdatabase.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.Value;
 
 import java.io.Serializable;
@@ -21,8 +20,8 @@ public class StudentDto implements Serializable {
     String lastName;
     String dateOfBirth;
     String address;
-    String studentMail;
-    String studentPhone;
+    String mail;
+    String phone;
     List<GradeDto> gradesDtos;
     Long subjectId;
     String subjectName;
