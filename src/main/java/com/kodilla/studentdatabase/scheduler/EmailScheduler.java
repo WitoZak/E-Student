@@ -23,7 +23,7 @@ public class EmailScheduler {
     public void sendInformationEmail() {
 
         List<String> studentEmails = studentRepository.findAll().stream()
-                .map(Student::getStudentMail)
+                .map(Student::getMail)
                 .toList();
 
         for (String email : studentEmails) {
