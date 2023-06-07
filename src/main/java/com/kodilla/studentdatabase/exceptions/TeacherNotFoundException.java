@@ -1,4 +1,4 @@
 package com.kodilla.studentdatabase.exceptions;
 
-public class TeacherNotFoundException {
+public class TeacherNotFoundException extends Throwable {
 }
