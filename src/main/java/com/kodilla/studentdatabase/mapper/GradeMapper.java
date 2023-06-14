@@ -40,7 +40,9 @@ public class GradeMapper {
                 grade.getValue(),
                 grade.getGradeTimestamp(),
                 grade.getSubject().getId(),
+                grade.getSubject().getSubjectName(),
                 grade.getTeacher().getId(),
+                grade.getTeacher().getLastName(),
                 grade.getStudent().getId()
         );
     }
