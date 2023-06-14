@@ -1,11 +1,13 @@
 package com.kodilla.studentdatabase.service;
 
 import com.kodilla.studentdatabase.domain.Student;
+import com.kodilla.studentdatabase.domain.StudentDto;
 import com.kodilla.studentdatabase.exceptions.StudentNotFoundException;
 import com.kodilla.studentdatabase.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,14 +20,27 @@ public class StudentService {
         return studentRepo.findAll();
     }
 
-    public List<Student> findAllStudents(String stringFilter) {
-        if (stringFilter == null || stringFilter.isEmpty()) {
-            return studentRepo.findAll();
-        } else {
-            return studentRepo.search(stringFilter);
-        }
-    }
+    public List<StudentDto> getAllStudentsDto() {
+        List<Student> students = studentRepo.findAll();
+        List<StudentDto> studentDtos = new ArrayList<>();
 
+        for (Student student : students) {
+            StudentDto studentDto = new StudentDto();
+            studentDto.setId(student.getId());
+            studentDto.setFirstName(student.getFirstName());
+            studentDto.setLastName(student.getLastName());
+            studentDto.setAddress(student.getAddress());
+            studentDto.setDateOfBirth(student.getDateOfBirth());
+            studentDto.setGroupName(student.getGroup().getClassName());
+            studentDto.setLogNumber(student.getLogNumber());
+            studentDto.setMail(student.getMail());
+            studentDto.setPhone(student.getPhone());
+
+            studentDtos.add(studentDto);
+        }
+
+        return studentDtos;
+    }
     public Student getStudent(final Long id) throws StudentNotFoundException {
         return studentRepo.findById(id).orElseThrow(StudentNotFoundException::new);
     }
