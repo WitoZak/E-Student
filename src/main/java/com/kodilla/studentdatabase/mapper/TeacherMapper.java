@@ -14,31 +14,26 @@ public class TeacherMapper {
     private final GradeMapper gradeMapper;
     private final SubjectMapper subjectMapper;
 
-    public Teacher mapToTeacher(final TeacherDto teacherDto) throws TeacherNotFoundException {
-        List<Subject> subjects = teacherDto.getSubjectsDtos() != null ? subjectMapper.mapToSubjectList(teacherDto.getSubjectsDtos()) : null;
-        List<Grade> grades = teacherDto.getGradesDtos() != null ? gradeMapper.mapToGradeList(teacherDto.getGradesDtos()) : null;
+    public Teacher mapToTeacher(final TeacherDto teacherDto) {
+
         return new Teacher(
                 teacherDto.getId(),
                 teacherDto.getFirstName(),
                 teacherDto.getLastName(),
                 teacherDto.getMail(),
                 teacherDto.getPhone(),
-                subjects,
-                grades
+                null,
+                null
         );
     }
 
     public TeacherDto mapToTeacherDto(final Teacher teacher) {
-        List<GradeDto> gradesDtos = teacher.getGrades() != null ? gradeMapper.mapToGradeDtoList(teacher.getGrades()) : null;
-        List<SubjectDto> subjectDtos = teacher.getSubjects() != null ? subjectMapper.mapToSubjectDtoList(teacher.getSubjects()) : null;
         return new TeacherDto(
                 teacher.getId(),
                 teacher.getFirstName(),
                 teacher.getLastName(),
                 teacher.getMail(),
-                teacher.getPhone(),
-                subjectDtos,
-                gradesDtos
+                teacher.getPhone()
         );
     }
 

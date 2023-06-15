@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,8 +27,23 @@ public class TeacherService {
         }
     }
 
+    public Teacher getTeacherByLastName(String lastName) throws TeacherNotFoundException {
+        Optional<Teacher> optionalTeacher = Optional.ofNullable(teacherRepository.findByLastName(lastName));
+        return optionalTeacher.orElseThrow(TeacherNotFoundException::new);
+    }
+
+
     public Teacher getTeacher(final Long id) throws TeacherNotFoundException {
         return teacherRepository.findById(id).orElseThrow(TeacherNotFoundException::new);
+    }
+
+    public Long findTeacherIdByName(String teacherName) {
+        Teacher teacher = teacherRepository.findByLastName(teacherName);
+        if (teacher != null) {
+            return teacher.getId();
+        } else {
+            return null;
+        }
     }
 
     public Teacher saveTeacher(final Teacher newTeacher) {

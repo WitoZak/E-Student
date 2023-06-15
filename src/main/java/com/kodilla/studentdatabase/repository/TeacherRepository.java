@@ -18,4 +18,7 @@ public interface TeacherRepository extends CrudRepository<Teacher, Long> {
             "where lower(c.firstName) like lower(concat('%', :searchTerm, '%')) " +
             "or lower(c.lastName) like lower(concat('%', :searchTerm, '%'))")
     List<Teacher> search(@Param("searchTerm") String searchTerm);
+
+    Teacher findByLastName(String lastName);
+
 }

@@ -29,7 +29,7 @@ public class Teacher {
     private String mail;
 
     @Column(name = "PHONE")
-    private String phone;
+    private Integer phone;
 
     @OneToMany(mappedBy = "teacher")
     private List<Subject> subjects;
@@ -47,7 +47,7 @@ public class Teacher {
             return teacher;
         }
 
-        public static Teacher createContactTeacher(String firstName, String lastName, String email, String phone) {
+        public static Teacher createContactTeacher(String firstName, String lastName, String email, Integer phone) {
             Teacher teacher = createTeacher(firstName, lastName, email);
             teacher.setPhone(phone);
             return teacher;
