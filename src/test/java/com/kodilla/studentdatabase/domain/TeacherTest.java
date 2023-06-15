@@ -15,7 +15,7 @@ class TeacherTest {
         String firstName = "John";
         String lastName = "Doe";
         String email = "john.doe@example.com";
-        String phone = "123-456-7890";
+        Integer phone = 1234567890;
         List<Subject> subjects = Arrays.asList(new Subject(), new Subject());
 
         // When
