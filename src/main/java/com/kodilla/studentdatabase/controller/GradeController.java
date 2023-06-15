@@ -8,6 +8,7 @@ import com.kodilla.studentdatabase.exceptions.SubjectNotFoundException;
 import com.kodilla.studentdatabase.exceptions.TeacherNotFoundException;
 import com.kodilla.studentdatabase.mapper.GradeMapper;
 import com.kodilla.studentdatabase.service.GradeService;
+import com.kodilla.studentdatabase.service.SubjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ public class GradeController {
 
     private final GradeService gradeService;
     private final GradeMapper gradeMapper;
+    private final SubjectService subjectService;
 
     @GetMapping
     public ResponseEntity<List<GradeDto>> findAllGrades() {
@@ -38,6 +40,7 @@ public class GradeController {
     @PostMapping
     public ResponseEntity<Void> addGrade(@RequestBody GradeDto gradeDto) throws SubjectNotFoundException, TeacherNotFoundException, StudentNotFoundException {
         Grade grade = gradeMapper.mapToGrade(gradeDto);
+        subjectService.saveSubject(grade.getSubject());
         gradeService.saveGrade(grade);
         return ResponseEntity.ok().build();
     }

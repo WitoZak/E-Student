@@ -1,6 +1,8 @@
 package com.kodilla.studentdatabase.domain;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -12,12 +14,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class GradeDto implements Serializable {
+
     Long id;
     String value;
     LocalDateTime gradeTimestamp;
-    Long subjectId;
     String subjectName;
-    Long teacherId;
     String lastName;
-    Long studentId;
+    String studentLastName;
 }

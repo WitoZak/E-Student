@@ -22,9 +22,22 @@ public class GradeMapper {
     private final StudentService studentService;
 
     public Grade mapToGrade(final GradeDto gradeDto) throws SubjectNotFoundException, TeacherNotFoundException, StudentNotFoundException {
-        Subject subject = gradeDto.getSubjectId() != null ? subjectService.getSubject(gradeDto.getSubjectId()) : null;
-        Teacher teacher = gradeDto.getTeacherId() != null ? teacherService.getTeacher(gradeDto.getTeacherId()) : null;
-        Student student = gradeDto.getStudentId() != null ? studentService.getStudent(gradeDto.getStudentId()) : null;
+        Subject subject = null;
+        Teacher teacher = null;
+        Student student = null;
+
+        if (gradeDto.getSubjectName() != null) {
+            subject = subjectService.getSubjectByName(gradeDto.getSubjectName());
+        }
+
+        if (gradeDto.getLastName() != null) {
+            teacher = teacherService.getTeacherByLastName(gradeDto.getLastName());
+        }
+
+        if (gradeDto.getStudentLastName() != null) {
+            student = studentService.getStudentByLastName(gradeDto.getStudentLastName());
+        }
+
         return new Grade(
                 gradeDto.getId(),
                 gradeDto.getValue(),
@@ -39,11 +52,9 @@ public class GradeMapper {
                 grade.getId(),
                 grade.getValue(),
                 grade.getGradeTimestamp(),
-                grade.getSubject().getId(),
                 grade.getSubject().getSubjectName(),
-                grade.getTeacher().getId(),
                 grade.getTeacher().getLastName(),
-                grade.getStudent().getId()
+                grade.getStudent().getLastName()
         );
     }
 
