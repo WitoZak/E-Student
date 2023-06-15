@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +29,7 @@ public class StudentService {
             StudentDto studentDto = new StudentDto();
             studentDto.setId(student.getId());
             studentDto.setFirstName(student.getFirstName());
-            studentDto.setLastName(student.getLastName());
+            studentDto.setStudentLastName(student.getLastName());
             studentDto.setAddress(student.getAddress());
             studentDto.setDateOfBirth(student.getDateOfBirth());
             studentDto.setGroupName(student.getGroup().getClassName());
@@ -44,6 +45,12 @@ public class StudentService {
     public Student getStudent(final Long id) throws StudentNotFoundException {
         return studentRepo.findById(id).orElseThrow(StudentNotFoundException::new);
     }
+
+    public Student getStudentByLastName(String lastName) throws StudentNotFoundException {
+        Optional<Student> optionalStudent = Optional.ofNullable(studentRepo.findByLastName(lastName));
+        return optionalStudent.orElseThrow(StudentNotFoundException::new);
+    }
+
 
     public Student saveStudent(final Student newStudent) {
         return studentRepo.save(newStudent);

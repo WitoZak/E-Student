@@ -1,6 +1,7 @@
 package com.kodilla.studentdatabase.repository;
 
 import com.kodilla.studentdatabase.domain.Student;
+import com.kodilla.studentdatabase.domain.Subject;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -17,5 +18,8 @@ public interface StudentRepository extends CrudRepository <Student, Long> {
             "where lower(c.firstName) like lower(concat('%', :searchTerm, '%')) " +
             "or lower(c.lastName) like lower(concat('%', :searchTerm, '%'))")
     List<Student> search(@Param("searchTerm") String searchTerm);
+
+    Student findByLastName(String name);
+
 }
 

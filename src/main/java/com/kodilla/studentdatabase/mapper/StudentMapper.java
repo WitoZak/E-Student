@@ -16,32 +16,24 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudentMapper {
 
-    private final GroupService groupService;
-    private final GradeMapper gradeMapper;
-    private final SubjectService subjectService;
-
-    public Student mapToStudent(final StudentDto studentDto) throws GroupNotFoundException, GradeNotFoundException, SubjectNotFoundException, TeacherNotFoundException {
-        List<Grade> grades = studentDto.getGradesDtos() != null ? gradeMapper.mapToGradeList(studentDto.getGradesDtos()) : null;
-        Subject subjects = studentDto.getSubjectId() != null ? subjectService.getSubject(studentDto.getSubjectId()) : null;
-        Group groups = studentDto.getGroupId() != null ? groupService.getGroup(studentDto.getGroupId()) : null;
+    public Student mapToStudent(final StudentDto studentDto) throws  GradeNotFoundException, SubjectNotFoundException, TeacherNotFoundException {
 
         return new Student(
                 studentDto.getId(),
                 studentDto.getLogNumber(),
                 studentDto.getFirstName(),
-                studentDto.getLastName(),
+                studentDto.getStudentLastName(),
                 studentDto.getDateOfBirth(),
                 studentDto.getAddress(),
                 studentDto.getMail(),
                 studentDto.getPhone(),
-                grades,
-                subjects,
-                groups
+                null,
+                null,
+                null
         );
     }
 
     public StudentDto mapToStudentDto(final Student student) {
-        List<GradeDto> gradesDtos = student.getGrades() != null ? gradeMapper.mapToGradeDtoList(student.getGrades()) : null;
 
         return new StudentDto(
                 student.getId(),
@@ -52,10 +44,7 @@ public class StudentMapper {
                 student.getAddress(),
                 student.getMail(),
                 student.getPhone(),
-                gradesDtos,
-                student.getSubject().getId(),
                 student.getSubject().getSubjectName(),
-                student.getGroup().getId(),
                 student.getGroup().getClassName()
         );
     }
@@ -71,7 +60,7 @@ public class StudentMapper {
                 .map(studentDto -> {
                     try {
                         return mapToStudent(studentDto);
-                    } catch (GroupNotFoundException | GradeNotFoundException | SubjectNotFoundException |
+                    } catch (GradeNotFoundException | SubjectNotFoundException |
                              TeacherNotFoundException e) {
                         throw new RuntimeException("Group not found", e);
                     }

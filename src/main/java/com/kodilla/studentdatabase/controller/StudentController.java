@@ -41,24 +41,8 @@ public class StudentController {
     @PostMapping
     public ResponseEntity<Void> addStudent(@RequestBody StudentDto studentDto) throws GroupNotFoundException, SubjectNotFoundException, TeacherNotFoundException, GradeNotFoundException {
         Student student = studentMapper.mapToStudent(studentDto);
-        if (studentDto.getGroupId() != null) {
-            Group group = groupService.getGroup(studentDto.getGroupId());
-            student.setGroup(group);
-        } else {
-            Group newGroup = new Group();
-            newGroup.setClassName(studentDto.getGroupName());
-            groupService.saveGroup(newGroup);
-            student.setGroup(newGroup);
-        }
-        if (studentDto.getSubjectId() != null) {
-            Subject subject = subjectService.getSubject(studentDto.getSubjectId());
-            student.setSubject(subject);
-        } else {
-            Subject newSubject = new Subject();
-            newSubject.setSubjectName(studentDto.getSubjectName());
-            subjectService.saveSubject(newSubject);
-            student.setSubject(newSubject);
-        }
+        groupService.saveGroup(student.getGroup());
+        subjectService.saveSubject(student.getSubject());
         studentService.saveStudent(student);
         return ResponseEntity.ok().build();
     }
@@ -67,7 +51,7 @@ public class StudentController {
     public ResponseEntity<StudentDto> updateStudent(@RequestBody StudentDto studentDto) throws StudentNotFoundException {
         Student studentToUpdate = studentService.getStudent(studentDto.getId());
         studentToUpdate.setFirstName(studentDto.getFirstName());
-        studentToUpdate.setLastName(studentDto.getLastName());
+        studentToUpdate.setLastName(studentDto.getStudentLastName());
         studentToUpdate.setDateOfBirth(studentDto.getDateOfBirth());
         studentToUpdate.setAddress(studentDto.getAddress());
         studentToUpdate.setMail(studentDto.getMail());
