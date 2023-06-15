@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +22,11 @@ public class SubjectService {
 
     public Subject getSubject(final Long id) throws SubjectNotFoundException {
         return subjectRepository.findById(id).orElseThrow(SubjectNotFoundException::new);
+    }
+
+    public Subject getSubjectByName(String subjectName) throws SubjectNotFoundException {
+        Optional<Subject> optionalSubject = Optional.ofNullable(subjectRepository.findBySubjectName(subjectName));
+        return optionalSubject.orElseThrow(SubjectNotFoundException::new);
     }
 
     public Subject saveSubject(final Subject newSubject) {

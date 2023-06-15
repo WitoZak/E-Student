@@ -50,7 +50,7 @@ public class SubjectMapper {
                 .toList();
     }
 
-    public List<Subject> mapToSubjectList(final List<SubjectDto> listOfSubjectsDtos) throws TeacherNotFoundException {
+    public List<Subject> mapToSubjectList(final List<SubjectDto> listOfSubjectsDtos) {
         List<Subject> subjects = new ArrayList<>();
 
         for (SubjectDto subjectDto : listOfSubjectsDtos) {
