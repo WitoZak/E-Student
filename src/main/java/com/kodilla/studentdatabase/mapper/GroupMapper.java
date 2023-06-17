@@ -19,7 +19,7 @@ public class GroupMapper {
         List<Student> students = groupDto.getStudentsDtos() != null ? studentMapper.mapToStudentList(groupDto.getStudentsDtos()) : null;
         return new Group(
                 groupDto.getId(),
-                groupDto.getClassName(),
+                groupDto.getGroupName(),
                 students
         );
     }
@@ -28,7 +28,7 @@ public class GroupMapper {
         List<StudentDto> studentsDtos = group.getStudents() != null ? studentMapper.mapToStudentDtoList(group.getStudents()) : null;
         return new GroupDto(
                 group.getId(),
-                group.getClassName(),
+                group.getGroupName(),
                 studentsDtos
         );
     }

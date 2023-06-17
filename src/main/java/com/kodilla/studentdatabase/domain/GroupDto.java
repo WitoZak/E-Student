@@ -13,6 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 public class GroupDto implements Serializable {
     Long id;
-    String className;
+    String groupName;
     List<StudentDto> studentsDtos;
 }

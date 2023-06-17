@@ -20,8 +20,8 @@ public class Group {
     @Column(name = "GROUPS_ID", unique = true)
     private Long id;
 
-    @Column(name = "CLASS_NAME")
-    private String className;
+    @Column(name = "GROUP_NAME")
+    private String groupName;
 
     @OneToMany(targetEntity = Student.class,
             mappedBy = "group",

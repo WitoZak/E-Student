@@ -22,6 +22,10 @@ public class GroupService {
         return groupRepository.findById(id).orElseThrow(GroupNotFoundException::new);
     }
 
+    public Group getGroupByName(String groupName) {
+        return groupRepository.findByGroupName(groupName);
+    }
+
     public Group saveGroup(final Group newGroup) {
         return groupRepository.save(newGroup);
     }
@@ -31,7 +35,7 @@ public class GroupService {
         if (groupRepository.findById(id).isPresent()) {
             Group group = new Group(
                     id,
-                    updatedGroup.getClassName(),
+                    updatedGroup.getGroupName(),
                     updatedGroup.getStudents()
             );
             return groupRepository.save(group);
