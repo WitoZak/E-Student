@@ -20,7 +20,6 @@ public class StudentDto implements Serializable {
     String dateOfBirth;
     String address;
     String mail;
-    String phone;
-    String subjectName;
+    Integer phone;
     String groupName;
 }

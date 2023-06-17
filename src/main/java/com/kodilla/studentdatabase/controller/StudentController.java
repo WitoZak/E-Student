@@ -39,10 +39,8 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> addStudent(@RequestBody StudentDto studentDto) throws GroupNotFoundException, SubjectNotFoundException, TeacherNotFoundException, GradeNotFoundException {
+    public ResponseEntity<Void> addStudent(@RequestBody StudentDto studentDto) throws SubjectNotFoundException, TeacherNotFoundException, GradeNotFoundException {
         Student student = studentMapper.mapToStudent(studentDto);
-        groupService.saveGroup(student.getGroup());
-        subjectService.saveSubject(student.getSubject());
         studentService.saveStudent(student);
         return ResponseEntity.ok().build();
     }

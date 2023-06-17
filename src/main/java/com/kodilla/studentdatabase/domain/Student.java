@@ -36,14 +36,10 @@ public class Student {
     private String mail;
 
     @Column(name = "STUDENT_PHONE")
-    private String phone;
+    private Integer phone;
 
     @OneToMany(mappedBy = "student")
     private List<Grade> grades;
-
-    @ManyToOne
-    @JoinColumn(name = "SUBJECT_NAME")
-    private Subject subject;
 
     @ManyToOne
     @JoinColumn(name = "CLASS_NAME")
@@ -59,7 +55,6 @@ public class Student {
         this.mail = builder.mail;
         this.phone = builder.phone;
         this.grades = builder.grades;
-        this.subject = builder.subject;
         this.group = builder.group;
     }
 
@@ -75,9 +70,8 @@ public class Student {
         private String dateOfBirth;
         private String address;
         private String mail;
-        private String phone;
+        private Integer phone;
         private List<Grade> grades;
-        private Subject subject;
         private Group group;
 
         private Builder() {
@@ -117,18 +111,13 @@ public class Student {
             return this;
         }
 
-        public Builder phone(String phone) {
+        public Builder phone(Integer phone) {
             this.phone = phone;
             return this;
         }
 
         public Builder grades(List<Grade> grades) {
             this.grades = grades;
-            return this;
-        }
-
-        public Builder subject(Subject subject) {
-            this.subject = subject;
             return this;
         }
 

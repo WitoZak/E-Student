@@ -5,6 +5,7 @@ import com.kodilla.studentdatabase.exceptions.GradeNotFoundException;
 import com.kodilla.studentdatabase.exceptions.GroupNotFoundException;
 import com.kodilla.studentdatabase.exceptions.SubjectNotFoundException;
 import com.kodilla.studentdatabase.exceptions.TeacherNotFoundException;
+import com.kodilla.studentdatabase.service.GradeService;
 import com.kodilla.studentdatabase.service.GroupService;
 import com.kodilla.studentdatabase.service.SubjectService;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +17,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudentMapper {
 
-    public Student mapToStudent(final StudentDto studentDto) throws  GradeNotFoundException, SubjectNotFoundException, TeacherNotFoundException {
-
+    private final GroupService groupService;
+    public Student mapToStudent(final StudentDto studentDto) throws  GradeNotFoundException, TeacherNotFoundException {
+        Group group = groupService.getGroupByName(studentDto.getGroupName());
         return new Student(
                 studentDto.getId(),
                 studentDto.getLogNumber(),
@@ -28,8 +30,7 @@ public class StudentMapper {
                 studentDto.getMail(),
                 studentDto.getPhone(),
                 null,
-                null,
-                null
+                group
         );
     }
 
@@ -44,8 +45,7 @@ public class StudentMapper {
                 student.getAddress(),
                 student.getMail(),
                 student.getPhone(),
-                student.getSubject().getSubjectName(),
-                student.getGroup().getClassName()
+                student.getGroup().getGroupName()
         );
     }
 
@@ -60,8 +60,7 @@ public class StudentMapper {
                 .map(studentDto -> {
                     try {
                         return mapToStudent(studentDto);
-                    } catch (GradeNotFoundException | SubjectNotFoundException |
-                             TeacherNotFoundException e) {
+                    } catch (GradeNotFoundException | TeacherNotFoundException e) {
                         throw new RuntimeException("Group not found", e);
                     }
                 })

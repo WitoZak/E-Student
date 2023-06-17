@@ -3,11 +3,11 @@ package com.kodilla.studentdatabase.service;
 import com.kodilla.studentdatabase.domain.Student;
 import com.kodilla.studentdatabase.domain.StudentDto;
 import com.kodilla.studentdatabase.exceptions.StudentNotFoundException;
+import com.kodilla.studentdatabase.mapper.StudentMapper;
 import com.kodilla.studentdatabase.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,31 +16,15 @@ import java.util.Optional;
 public class StudentService {
 
     private final StudentRepository studentRepo;
+    private final StudentMapper studentMapper;
 
     public List<Student> getAllStudents() {
         return studentRepo.findAll();
     }
 
-    public List<StudentDto> getAllStudentsDto() {
+    public List<StudentDto> findAllStudentsDto() {
         List<Student> students = studentRepo.findAll();
-        List<StudentDto> studentDtos = new ArrayList<>();
-
-        for (Student student : students) {
-            StudentDto studentDto = new StudentDto();
-            studentDto.setId(student.getId());
-            studentDto.setFirstName(student.getFirstName());
-            studentDto.setStudentLastName(student.getLastName());
-            studentDto.setAddress(student.getAddress());
-            studentDto.setDateOfBirth(student.getDateOfBirth());
-            studentDto.setGroupName(student.getGroup().getClassName());
-            studentDto.setLogNumber(student.getLogNumber());
-            studentDto.setMail(student.getMail());
-            studentDto.setPhone(student.getPhone());
-
-            studentDtos.add(studentDto);
-        }
-
-        return studentDtos;
+        return studentMapper.mapToStudentDtoList(students);
     }
     public Student getStudent(final Long id) throws StudentNotFoundException {
         return studentRepo.findById(id).orElseThrow(StudentNotFoundException::new);
@@ -69,7 +53,6 @@ public class StudentService {
                     updatedStudent.getMail(),
                     updatedStudent.getPhone(),
                     updatedStudent.getGrades(),
-                    updatedStudent.getSubject(),
                     updatedStudent.getGroup()
             );
             return studentRepo.save(student);
