@@ -1,6 +1,5 @@
 package com.kodilla.studentdatabase.repository;
 
-import com.kodilla.studentdatabase.domain.Student;
 import com.kodilla.studentdatabase.domain.Teacher;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
