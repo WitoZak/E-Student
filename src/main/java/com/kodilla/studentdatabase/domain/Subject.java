@@ -26,11 +26,6 @@ public class Subject {
     @OneToMany(mappedBy = "subject")
     private List<Grade> grades;
 
-    @OneToMany(targetEntity = Student.class,
-            mappedBy = "subject",
-            fetch = FetchType.LAZY)
-    private List<Student> students;
-
     @ManyToOne
     @JoinColumn(name = "TEACHER_ID")
     private Teacher teacher;

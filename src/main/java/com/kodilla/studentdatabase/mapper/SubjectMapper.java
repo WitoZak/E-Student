@@ -20,26 +20,22 @@ public class SubjectMapper {
 
     public Subject mapToSubject(final SubjectDto subjectDto) throws TeacherNotFoundException {
         List<Grade> grades = subjectDto.getGradesDtos() != null ? gradeMapper.mapToGradeList(subjectDto.getGradesDtos()) : null;
-        List<Student> students = subjectDto.getStudentsDtos() != null ? studentMapper.mapToStudentList(subjectDto.getStudentsDtos()) : null;
         Teacher teachers = subjectDto.getTeacherId() != null ? teacherService.getTeacher(subjectDto.getTeacherId()) : null;
 
         return new Subject(
                 subjectDto.getId(),
                 subjectDto.getSubjectName(),
                 grades,
-                students,
                 teachers
         );
     }
 
     public SubjectDto mapToSubjectDto(final Subject subject) {
         List<GradeDto> gradesDtos = subject.getGrades() != null ? gradeMapper.mapToGradeDtoList(subject.getGrades()) : null;
-        List<StudentDto> studentsDtos = subject.getStudents() != null ? studentMapper.mapToStudentDtoList(subject.getStudents()) : null;
         return new SubjectDto(
                 subject.getId(),
                 subject.getSubjectName(),
                 gradesDtos,
-                studentsDtos,
                 subject.getTeacher().getId()
         );
     }

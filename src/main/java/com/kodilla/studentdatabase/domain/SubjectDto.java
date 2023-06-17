@@ -17,6 +17,5 @@ public class SubjectDto implements Serializable {
     Long id;
     String subjectName;
     List<GradeDto> gradesDtos;
-    List<StudentDto> studentsDtos;
     Long teacherId;
 }

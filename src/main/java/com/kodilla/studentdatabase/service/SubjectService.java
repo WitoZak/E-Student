@@ -40,7 +40,6 @@ public class SubjectService {
                     id,
                     updatedSubject.getSubjectName(),
                     updatedSubject.getGrades(),
-                    updatedSubject.getStudents(),
                     updatedSubject.getTeacher()
             );
             return subjectRepository.save(subject);
