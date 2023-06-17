@@ -19,7 +19,7 @@ class StudentTest {
         String dateOfBirth = "2000-01-01";
         String address = "123 Main St";
         String mail = "john.doe@example.com";
-        String phone = "123-456-7890";
+        Integer phone = 123-456-7890;
         List<Grade> grades = Arrays.asList(new Grade(), new Grade());
         Subject subject = new Subject();
         Group group = new Group();
