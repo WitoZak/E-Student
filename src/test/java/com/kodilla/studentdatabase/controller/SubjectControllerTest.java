@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -95,13 +96,26 @@ class SubjectControllerTest {
         // Given
         Long subjectId = 1L;
         SubjectDto subjectDto = new SubjectDto();
+        subjectDto.setId(subjectId);
+        subjectDto.setSubjectName("Math");
+
         Subject subjectToUpdate = new Subject();
         subjectToUpdate.setId(subjectId);
+
         Subject updatedSubject = new Subject();
+        updatedSubject.setId(subjectId);
+        updatedSubject.setSubjectName("Math");
+
         SubjectDto updatedSubjectDto = new SubjectDto();
-        when(subjectService.getSubject(subjectId)).thenReturn(subjectToUpdate);
-        when(subjectService.updateSubject(subjectToUpdate)).thenReturn(updatedSubject);
-        when(subjectMapper.mapToSubjectDto(updatedSubject)).thenReturn(updatedSubjectDto);
+        updatedSubjectDto.setId(subjectId);
+        updatedSubjectDto.setSubjectName("Math");
+
+        Mockito.when(subjectService.getSubject(subjectId))
+                .thenReturn(subjectToUpdate);
+        Mockito.when(subjectService.updateSubject(Mockito.eq(subjectToUpdate)))
+                .thenReturn(updatedSubject);
+        Mockito.when(subjectMapper.mapToSubjectDto(updatedSubject))
+                .thenReturn(updatedSubjectDto);
 
         // When
         ResponseEntity<SubjectDto> response = subjectController.updateSubject(subjectDto);

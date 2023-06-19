@@ -35,7 +35,6 @@ class StudentTest {
                 .mail(mail)
                 .phone(phone)
                 .grades(grades)
-                .subject(subject)
                 .group(group)
                 .build();
 
@@ -49,7 +48,6 @@ class StudentTest {
         assertEquals(mail, student.getMail());
         assertEquals(phone, student.getPhone());
         assertEquals(grades, student.getGrades());
-        assertEquals(subject, student.getSubject());
         assertEquals(group, student.getGroup());
     }
 }

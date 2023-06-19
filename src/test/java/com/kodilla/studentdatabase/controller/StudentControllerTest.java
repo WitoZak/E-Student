@@ -1,14 +1,10 @@
 package com.kodilla.studentdatabase.controller;
 
-import com.kodilla.studentdatabase.domain.Group;
 import com.kodilla.studentdatabase.domain.Student;
 import com.kodilla.studentdatabase.domain.StudentDto;
-import com.kodilla.studentdatabase.domain.Subject;
 import com.kodilla.studentdatabase.exceptions.*;
 import com.kodilla.studentdatabase.mapper.StudentMapper;
-import com.kodilla.studentdatabase.service.GroupService;
 import com.kodilla.studentdatabase.service.StudentService;
-import com.kodilla.studentdatabase.service.SubjectService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -32,12 +28,6 @@ class StudentControllerTest {
 
     @Mock
     private StudentMapper studentMapper;
-
-    @Mock
-    private GroupService groupService;
-
-    @Mock
-    private SubjectService subjectService;
 
     @InjectMocks
     private StudentController studentController;
@@ -87,14 +77,8 @@ class StudentControllerTest {
     void testAddStudent() throws GroupNotFoundException, SubjectNotFoundException, TeacherNotFoundException, GradeNotFoundException {
         // Given
         StudentDto studentDto = mock(StudentDto.class);
-        when(studentDto.getGroupId()).thenReturn(1L);
-        when(studentDto.getSubjectId()).thenReturn(1L);
-        Group group = new Group();
-        Subject subject = new Subject();
         Student student = new Student();
         when(studentMapper.mapToStudent(studentDto)).thenReturn(student);
-        when(groupService.getGroup(studentDto.getGroupId())).thenReturn(group);
-        when(subjectService.getSubject(studentDto.getSubjectId())).thenReturn(subject);
         when(studentService.saveStudent(student)).thenReturn(student);
 
         // When

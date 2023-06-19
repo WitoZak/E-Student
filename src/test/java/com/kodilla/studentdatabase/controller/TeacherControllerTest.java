@@ -8,6 +8,7 @@ import com.kodilla.studentdatabase.service.TeacherService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -90,13 +91,29 @@ class TeacherControllerTest {
         // Given
         Long teacherId = 1L;
         TeacherDto teacherDto = new TeacherDto();
+        teacherDto.setId(teacherId);
+        teacherDto.setFirstName("John");
+        teacherDto.setLastName("Doe");
+
         Teacher teacherToUpdate = new Teacher();
         teacherToUpdate.setId(teacherId);
+
         Teacher updatedTeacher = new Teacher();
+        updatedTeacher.setId(teacherId);
+        updatedTeacher.setFirstName("John");
+        updatedTeacher.setLastName("Doe");
+
         TeacherDto updatedTeacherDto = new TeacherDto();
-        when(teacherService.getTeacher(teacherId)).thenReturn(teacherToUpdate);
-        when(teacherService.updateTeacher(teacherToUpdate)).thenReturn(updatedTeacher);
-        when(teacherMapper.mapToTeacherDto(updatedTeacher)).thenReturn(updatedTeacherDto);
+        updatedTeacherDto.setId(teacherId);
+        updatedTeacherDto.setFirstName("John");
+        updatedTeacherDto.setLastName("Doe");
+
+        Mockito.when(teacherService.getTeacher(teacherId))
+                .thenReturn(teacherToUpdate);
+        Mockito.when(teacherService.updateTeacher(Mockito.eq(teacherToUpdate)))
+                .thenReturn(updatedTeacher);
+        Mockito.when(teacherMapper.mapToTeacherDto(updatedTeacher))
+                .thenReturn(updatedTeacherDto);
 
         // When
         ResponseEntity<TeacherDto> response = teacherController.updateTeacher(teacherDto);

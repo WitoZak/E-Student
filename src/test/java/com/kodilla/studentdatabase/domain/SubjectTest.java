@@ -17,18 +17,16 @@ class SubjectTest {
         Long id = 1L;
         String subjectName = "Mathematics";
         List<Grade> grades = Arrays.asList(new Grade(), new Grade());
-        List<Student> students = Arrays.asList(new Student(), new Student());
         Teacher teacher = new Teacher();
 
         // When
-        Subject subject = new Subject(id, subjectName, grades, students, teacher);
+        Subject subject = new Subject(id, subjectName, grades, teacher);
 
         // Then
         assertNotNull(subject);
         assertEquals(id, subject.getId());
         assertEquals(subjectName, subject.getSubjectName());
         assertEquals(grades, subject.getGrades());
-        assertEquals(students, subject.getStudents());
         assertEquals(teacher, subject.getTeacher());
     }
 }

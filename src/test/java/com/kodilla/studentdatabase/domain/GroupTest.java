@@ -22,7 +22,7 @@ class GroupTest {
 
         // Then
         assertEquals(id, group.getId());
-        assertEquals(className, group.getClassName());
+        assertEquals(className, group.getGroupName());
         assertEquals(students, group.getStudents());
         assertTrue(group.getStudents().containsAll(students));
     }
