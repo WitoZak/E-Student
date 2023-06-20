@@ -40,7 +40,6 @@ public class GradeController {
     @PostMapping
     public ResponseEntity<Void> addGrade(@RequestBody GradeDto gradeDto) throws SubjectNotFoundException, TeacherNotFoundException, StudentNotFoundException {
         Grade grade = gradeMapper.mapToGrade(gradeDto);
-        subjectService.saveSubject(grade.getSubject());
         gradeService.saveGrade(grade);
         return ResponseEntity.ok().build();
     }
