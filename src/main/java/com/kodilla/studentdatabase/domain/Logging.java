@@ -10,21 +10,25 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Entity(name = "USER")
+@Entity(name = "LOGGING")
 public class Logging {
 
     @Id
     @GeneratedValue
+    @Column(name = "LOGGING_ID", unique = true)
     private Long id;
 
-    @Column(name = "LOG_TIMESTAMP")
-    private LocalDateTime logTimestamp;
+    @Column(name = "USERNAME")
+    private String username;
 
-    @OneToOne
-    @JoinColumn(name = "STUDENT_ID")
-    private Student student;
+    @Column(name = "PASSWORD")
+    private String password;
 
-    @OneToOne
-    @JoinColumn(name = "TEACHER_ID")
-    private Teacher teacher;
+    @Column(name = "ROLE")
+    private String role;
+
+    @Column(name = "CREATION_TIMESTAMP")
+    private LocalDateTime creationTimestamp;
+
+
 }

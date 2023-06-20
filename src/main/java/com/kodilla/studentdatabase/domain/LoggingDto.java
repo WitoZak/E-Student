@@ -1,17 +1,22 @@
 package com.kodilla.studentdatabase.domain;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- * DTO for {@link Logging}
- */
-@Value
-public class LoggingDto implements Serializable {
-    Long id;
-    LocalDateTime logTimestamp;
-    Student student;
-    Teacher teacher;
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class LoggingDto {
+
+    private Long id;
+    private String username;
+    private String password;
+    private String role;
+    private LocalDateTime creationTimestamp;
+
 }
