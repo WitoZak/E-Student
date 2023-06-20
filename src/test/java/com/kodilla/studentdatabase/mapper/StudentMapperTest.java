@@ -3,8 +3,6 @@ package com.kodilla.studentdatabase.mapper;
 import com.kodilla.studentdatabase.domain.Group;
 import com.kodilla.studentdatabase.domain.Student;
 import com.kodilla.studentdatabase.domain.StudentDto;
-import com.kodilla.studentdatabase.exceptions.GradeNotFoundException;
-import com.kodilla.studentdatabase.exceptions.TeacherNotFoundException;
 import com.kodilla.studentdatabase.service.GroupService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +10,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
 
 class StudentMapperTest {
 
@@ -24,7 +21,7 @@ class StudentMapperTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        studentMapper = new StudentMapper();
+        studentMapper = new StudentMapper(groupService);
     }
 
     @Test

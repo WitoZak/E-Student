@@ -23,7 +23,6 @@ public class StudentController {
     private final StudentService studentService;
     private final StudentMapper studentMapper;
     private final GroupService groupService;
-    private final SubjectService subjectService;
 
     @GetMapping
     public ResponseEntity<List<StudentDto>> findAllStudents() {
@@ -41,6 +40,7 @@ public class StudentController {
     @PostMapping
     public ResponseEntity<Void> addStudent(@RequestBody StudentDto studentDto) throws SubjectNotFoundException, TeacherNotFoundException, GradeNotFoundException {
         Student student = studentMapper.mapToStudent(studentDto);
+        groupService.saveGroup(student.getGroup());
         studentService.saveStudent(student);
         return ResponseEntity.ok().build();
     }

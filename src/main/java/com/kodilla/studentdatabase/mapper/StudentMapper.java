@@ -1,13 +1,11 @@
 package com.kodilla.studentdatabase.mapper;
 
-import com.kodilla.studentdatabase.domain.*;
+import com.kodilla.studentdatabase.domain.Group;
+import com.kodilla.studentdatabase.domain.Student;
+import com.kodilla.studentdatabase.domain.StudentDto;
 import com.kodilla.studentdatabase.exceptions.GradeNotFoundException;
-import com.kodilla.studentdatabase.exceptions.GroupNotFoundException;
-import com.kodilla.studentdatabase.exceptions.SubjectNotFoundException;
 import com.kodilla.studentdatabase.exceptions.TeacherNotFoundException;
-import com.kodilla.studentdatabase.service.GradeService;
 import com.kodilla.studentdatabase.service.GroupService;
-import com.kodilla.studentdatabase.service.SubjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +16,7 @@ import java.util.List;
 public class StudentMapper {
 
     private final GroupService groupService;
+
     public Student mapToStudent(final StudentDto studentDto) throws  GradeNotFoundException, TeacherNotFoundException {
         Group group = groupService.getGroupByName(studentDto.getGroupName());
         return new Student(

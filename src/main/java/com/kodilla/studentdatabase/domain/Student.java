@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -129,5 +130,26 @@ public class Student {
         public Student build() {
             return new Student(this);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return Objects.equals(id, student.id) &&
+                Objects.equals(logNumber, student.logNumber) &&
+                Objects.equals(firstName, student.firstName) &&
+                Objects.equals(lastName, student.lastName) &&
+                Objects.equals(dateOfBirth, student.dateOfBirth) &&
+                Objects.equals(address, student.address) &&
+                Objects.equals(mail, student.mail) &&
+                Objects.equals(phone, student.phone) &&
+                Objects.equals(group, student.group);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, logNumber, firstName, lastName, dateOfBirth, address, mail, phone, group);
     }
 }
