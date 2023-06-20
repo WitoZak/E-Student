@@ -2,10 +2,6 @@ package com.kodilla.studentdatabase.mapper;
 
 import com.kodilla.studentdatabase.domain.Group;
 import com.kodilla.studentdatabase.domain.GroupDto;
-import com.kodilla.studentdatabase.domain.Student;
-import com.kodilla.studentdatabase.domain.StudentDto;
-import com.kodilla.studentdatabase.mapper.GroupMapper;
-import com.kodilla.studentdatabase.mapper.StudentMapper;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -17,7 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 class GroupMapperTest {
 
-    private final StudentMapper studentMapper = new StudentMapper();
+    private final StudentMapper studentMapper;
+
+    {
+        studentMapper = new StudentMapper();
+    }
+
     private final GroupMapper groupMapper = new GroupMapper(studentMapper);
 
 

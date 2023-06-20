@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * DTO for {@link Group}
  */
-@Value
+@Data
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class GroupDto implements Serializable {
